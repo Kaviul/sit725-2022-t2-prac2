@@ -1,12 +1,12 @@
 {
   "name": "sit725-2022-t2-prac2",
   "version": "1.0.0",
-  "description": "",
+  "description": "SIT725 Practical 2",
   "main": "Prac2.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node Prac2.js"
   },
-  "author": "",
+  "author": "MD KAVIUL HOSSAIN",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
