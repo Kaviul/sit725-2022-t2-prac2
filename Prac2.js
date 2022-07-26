@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
 const Class = [
@@ -9,12 +11,15 @@ const Class = [
     {std_id: 3, std_name: 'Name3', height: '5.3'},
     {std_id: 4, std_name: 'Name4', height: '5.4'},
 
-
 ]
 
 app.get('/', (req, res) => {
-    res.send('This is the class database.')
+    res.send('This is the class database.');
 });
+
+app.get('/Class/calc', (req, res) => {
+    res.sendFile(__dirname + '/Prac2.html');
+})
 
 app.get('/Class', (req, res) => {
     res.send(Class);
@@ -22,9 +27,21 @@ app.get('/Class', (req, res) => {
 
 app.get('/Class/:std_id', (req, res) => {
     const Student = Class.find(c => c.std_id === parseInt(req.params.std_id));
-    if (!Student) res.status(404),send("No such record found");
+    if (!Student) res.status(404).send("No such record found");
     res.send(Student);
 });
+
+
+
+app.post('/Class/calc', (req, res) => {
+    var mark1 = parseInt(req.body.firstNumber);
+    var mark2 = parseInt(req.body.secondNumber);
+    var total_mark = parseInt(mark1 + mark2);
+    res.send("The sum is: " + Number(total_mark));
+
+});
+
+
 
 app.post('/Class', (req, res) => {
     const Student = {
@@ -52,6 +69,7 @@ app.delete('/Class/:std_id', (req, res) => {
     res.send(Student);
     
 });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening at port: ${port}`));
